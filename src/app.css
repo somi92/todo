@@ -1,0 +1,23 @@
+body {
+  padding-top: 5rem;
+}
+
+.main {
+  padding: 2rem 1.5rem;
+}
+
+.right {
+  float: right;
+}
+
+.item {
+  margin-bottom: 0.5rem;
+}
+
+.remove-item {
+  margin-left: 1rem;
+}
+
+.toggle-label {
+  margin-top: 1rem;
+}
