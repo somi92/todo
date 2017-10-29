@@ -32,7 +32,7 @@
         <div class="form-group">
           <input class="form-control" id="item-input" aria-describedby="emailHelp" placeholder="Enter TODO item and press Enter or click Add...">
         </div>
-        <button id="add" type="submit" class="btn btn-primary right">Add</button>
+        <button id="add" type="submit" class="btn btn-primary right clickable">Add</button>
       </div>
       <div class="col-1"></div>
     </div>
@@ -52,14 +52,14 @@
         <div class="card-body">
           <h4 class="card-title">{{text}}</h4>
           <div class="form-check">
-            <label class="form-check-label toggle-label">
+            <label class="form-check-label toggle-label clickable">
                 {{#if checked}}
-                <input type="checkbox" class="form-check-input toggle-done" checked data-index="{{@index}}"> Done
+                <input type="checkbox" class="form-check-input toggle-done clickable" checked data-index="{{@index}}"> Done
                 {{else}}
-                <input type="checkbox" class="form-check-input toggle-done" data-index="{{@index}}"> Done
+                <input type="checkbox" class="form-check-input toggle-done clickable" data-index="{{@index}}"> Done
                 {{/if}}
             </label>
-            <button type="button" class="btn btn-dark rounded-circle right remove-item" data-index="{{@index}}">X</button>
+            <button type="button" class="btn btn-dark rounded-circle right remove-item clickable" data-index="{{@index}}">X</button>
           </div>
         </div>
       </div>

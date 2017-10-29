@@ -21,3 +21,7 @@ body {
 .toggle-label {
   margin-top: 1rem;
 }
+
+.clickable {
+  cursor: pointer;
+}
