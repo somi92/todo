@@ -33,7 +33,7 @@ npm uninstall -g figlet-cli // Uninstall global package (figlet-cli in this case
 
 ### package.json
 
-The [package.json](https://docs.npmjs.com/files/package.json) file describes a npm module and its dependencies.
+The [package.json](https://docs.npmjs.com/files/package.json) file describes a project (a npm module) and its dependencies. This file must be checked into version control. 
 
 ```node
 npm init // initialize a npm module and create package.json file
@@ -41,22 +41,22 @@ npm init // initialize a npm module and create package.json file
 
 Example *package.json* file:
 
-```json
+```node
 {
-  "name": "project",
-  "version": "1.0.0",
+  "name": "project", // mandatory
+  "version": "1.0.0", //mandatory
   "description": "",
-  "main": "index.js",
-  "scripts": {
+  "main": "index.js", // entry point
+  "scripts": { // scripts that can be run with npm command
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": { // declaration of runtime dependencies
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1"
   },
-  "devDependencies": {
+  "devDependencies": { // declaration of development dependencies
     "babel": "^6.23.0",
     "webpack": "^3.8.1"
   }
@@ -67,8 +67,17 @@ Example *package.json* file:
 
 ### Local packages
 
+Managing local project packages is done from project root directory in which the *package.json* should be stored. Local packages are stored in *node_modules* directory which is usually ignored by the version control.
+
 ```node
-npm install --save jquery // installs a package and declares dependency in package.json
+npm install --save jquery // install a package in node_modules and add dependency in package.json
+npm install --save-dev webpack // install a package in node_modules and add devDependency in package.json
+npm install --save bootstrap@3.3.7 // install a specific version of package in node_modules and add dependency in package.json
+```
+Local package versioning in *package.json* is described by [semver](https://docs.npmjs.com/getting-started/semantic-versioning) standard.
+
+```node
+npm install // running it on a fresh clone of the project will fetch all dependencies
 ```
 
 ### package-lock.json
