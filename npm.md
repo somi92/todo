@@ -163,6 +163,5 @@ npm la // print additional package information while listing modules
 * Uses *package.json* file and is fully compatible with npm registry.
 * Has its lock system (yarn.lock file) for consistent dependancy management.
 * Offers some security and performance improvements (like parallel installing, offline mode, etc).
-
-[Get yarn](https://yarnpkg.com/en/docs/getting-started)
-[Migrating from npm](https://yarnpkg.com/en/docs/migrating-from-npm)
+* [Get yarn](https://yarnpkg.com/en/docs/getting-started)
+* [Migrating from npm](https://yarnpkg.com/en/docs/migrating-from-npm)
