@@ -1,0 +1,17 @@
+<div>
+    {{#each items}}
+    <div class="card item bg-{{color}} text-white">
+        <div class="card-body">
+            <h4 class="card-title">{{text}}</h4>
+            <div class="form-check">
+                <label class="form-check-label toggle-label clickable">
+                    {{#if checked}}
+                    <input type="checkbox" class="form-check-input toggle-done clickable" checked data-index="{{@index}}"> Done {{else}}
+                    <input type="checkbox" class="form-check-input toggle-done clickable" data-index="{{@index}}"> Done {{/if}}
+                </label>
+                <button type="button" class="btn btn-dark rounded-circle right remove-item clickable" data-index="{{@index}}">X</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

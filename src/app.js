@@ -1,10 +1,11 @@
-var source = $("#list-items").html();
-var template = Handlebars.compile(source);
+import todoItemTemplate from './todoItem.hbs';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
 
-var addButton = $("#add");
-var removeButton = $(".remove-item");
-var listContainer = $("#todo-list-container");
-var todoInput = $("#item-input");
+var addButton = $('#add');
+var removeButton = $('.remove-item');
+var listContainer = $('#todo-list-container');
+var todoInput = $('#item-input');
 
 var items = [];
 
@@ -21,17 +22,17 @@ todoInput.keypress(function (e) {
 
 listContainer.click(function (e) {
     var el = $(e.target);
-    if (el.hasClass("remove-item")) {
-        removeItem(el.data("index"));
+    if (el.hasClass('remove-item')) {
+        removeItem(el.data('index'));
         updateView();
-    } else if (el.hasClass("toggle-done")) {
-        toggleDone(el.data("index"));
+    } else if (el.hasClass('toggle-done')) {
+        toggleDone(el.data('index'));
         updateView();
     }
 });
 
 function updateView() {
-    var html = template({ items: items });
+    var html = todoItemTemplate({ items: items });
     listContainer.html(html);
 }
 
@@ -47,7 +48,7 @@ function handleAdd() {
 function addItem(itemText) {
     items.push({
         text: itemText,
-        color: "danger",
+        color: 'danger',
         checked: false
     });
 }
@@ -60,7 +61,7 @@ function toggleDone(index) {
     var item = items[index];
     items.splice(index, 1, {
         text: item.text,
-        color: !item.checked ? "success" : "danger",
+        color: !item.checked ? 'success' : 'danger',
         checked: !item.checked
     });
 }
