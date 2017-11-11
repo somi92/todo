@@ -1,11 +1,16 @@
-var webpack = require('webpack');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const HtmlwebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const path = require('path');
 
 module.exports = {
 
-    entry: './src/app.js',
+    entry: {
+        vendor: ['babel-polyfill', 'jquery', 'bootstrap/dist/css/bootstrap.min.css'],
+        main: './src/app.js'
+    },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -42,8 +47,14 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
-            jQuery: 'jquery'
-        })
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        }),
+        new CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.bundle.js'
+        }),
+        new UglifyJSPlugin()
     ]
 
 };
