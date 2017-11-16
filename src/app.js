@@ -65,3 +65,5 @@ function toggleDone(index) {
         checked: !item.checked
     });
 }
+
+console.log("Simple TODO list app!");

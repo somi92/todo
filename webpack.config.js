@@ -41,6 +41,14 @@ module.exports = {
         ]
     },
 
+    devServer: {
+        hot: true,
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        // stats: 'errors-only',
+        // open: true
+    },
+
     plugins: [
         new HtmlwebpackPlugin({
             template: './src/index.html'
@@ -54,7 +62,9 @@ module.exports = {
             name: 'vendor',
             filename: 'vendor.bundle.js'
         }),
-        new UglifyJSPlugin()
+        new UglifyJSPlugin(),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 
 };
