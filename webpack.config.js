@@ -2,8 +2,20 @@ const webpack = require('webpack');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const path = require('path');
+
+const isProd = process.env.NODE_ENV === 'prod';
+
+const prodCssConfig = ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: 'css-loader'
+});
+
+const devCssConfig = ['style-loader', 'css-loader'];
+
+const cssConfig = isProd ? prodCssConfig : devCssConfig;
 
 module.exports = {
 
@@ -33,13 +45,18 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' }, // inject CSS to a page
-                    { loader: 'css-loader' } // translates CSS into CommonJS modules
-                ]
+                use: cssConfig
+            },
+            {
+                test: /\.js$/,
+                loader: 'source-map-loader',
+                enforce: 'pre',
+                exclude: /node_modules/ // ?
             }
         ]
     },
+
+    devtool: isProd ? 'source-map' : 'inline-source-map',
 
     devServer: {
         hot: true,
@@ -60,9 +77,17 @@ module.exports = {
         }),
         new CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'vendor.bundle.js'
+            filename: 'vendor.bundle.js',
+            chunks: ['babel-polyfill', 'jquery', 'bootstrap/dist/css/bootstrap.min.css']
         }),
-        new UglifyJSPlugin(),
+        new UglifyJSPlugin({
+            sourceMap: true
+        }),
+        new ExtractTextPlugin({
+            filename: 'app.css',
+            disable: !isProd,
+            allChunks: true
+        }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ]
