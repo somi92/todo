@@ -2,20 +2,34 @@ const webpack = require('webpack');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const path = require('path');
 
 const isProd = process.env.NODE_ENV === 'prod';
 
-const prodCssConfig = ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: 'css-loader'
-});
+var plugins = [
+    new HtmlwebpackPlugin({
+        template: './src/index.html'
+    }),
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+    }),
+    new CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'vendor.bundle.js'
+    }),
+    new UglifyJSPlugin({
+        sourceMap: true
+    })
+];
 
-const devCssConfig = ['style-loader', 'css-loader'];
-
-const cssConfig = isProd ? prodCssConfig : devCssConfig;
+if (!isProd)
+    plugins = plugins.concat([
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ]);
 
 module.exports = {
 
@@ -45,13 +59,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: cssConfig
+                use:  ['style-loader', 'css-loader']
             },
             {
                 test: /\.js$/,
                 loader: 'source-map-loader',
-                enforce: 'pre',
-                exclude: /node_modules/ // ?
+                enforce: 'pre'
             }
         ]
     },
@@ -66,30 +79,6 @@ module.exports = {
         // open: true
     },
 
-    plugins: [
-        new HtmlwebpackPlugin({
-            template: './src/index.html'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
-        }),
-        new CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'vendor.bundle.js',
-            chunks: ['babel-polyfill', 'jquery', 'bootstrap/dist/css/bootstrap.min.css']
-        }),
-        new UglifyJSPlugin({
-            sourceMap: true
-        }),
-        new ExtractTextPlugin({
-            filename: 'app.css',
-            disable: !isProd,
-            allChunks: true
-        }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ]
+    plugins: plugins
 
 };
