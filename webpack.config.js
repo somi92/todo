@@ -35,12 +35,12 @@ module.exports = {
 
     entry: {
         vendor: ['babel-polyfill', 'jquery', 'bootstrap/dist/css/bootstrap.min.css'],
-        main: './src/app.js'
+        app: './src/app.js'
     },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js'
+        filename: '[name].bundle.js'
     },
 
     module: {
