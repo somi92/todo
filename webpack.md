@@ -107,7 +107,77 @@ output: {
 
 ### Loaders
 
+Loaders transform various types of files into modules that can be processed by webpack and included in the dependency graph. By using loaders, various assets can be transformed and used as JS modules. Loaders are defined as a `rules` array of `module` property. They are usually installed via npm.
+
+```js
+module: {
+    rules: [
+        {
+            test: /\.hbs$/, // use handlebars-loader for all hbs files
+            loader: 'handlebars-loader'
+        },
+        {
+            test: /\.css$/, // use css-loader and style-loader in pipeline on all css files (order of application is right to left)
+            use:  ['style-loader', 'css-loader'],
+        }
+    ]
+}
+
+// ......
+
+// passing additional options to loaders
+module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+            // enforce: "pre/post" can be used to change the order of loader execution
+          }
+        ]
+      }
+    ]
+  }
+```
+
+Some of commonly used loaders:
+* css-loader for creating modules from css
+* style-loader for injecting css to the page
+* babel-loader for transpiling JS code
+* source-map-loader for loading source maps
+
 ### Plugins
+
+Plugins can perform a wide range of task, from bundle minification and optimization to handling environment variables and extracting common chunks. Besides built-in, there are many third party plugins installable via npm. Plugins are required in the webpack config and passed to plugins array as instances created by `new` operator (can take parameters in constructor functions). Multiple instaces of a same plugin can be used.
+
+```js
+const webpack = require('webpack'); // access built-in plugins
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); //installed via npm
+
+// ...
+
+plugins: [
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+    }),
+    new UglifyJSPlugin()
+]
+```
+
+Some of commonly used plugins are:
+* ProvidePlugin for automatically loading modules
+* UglifyJS for minifying code
+* HtmlwebpackPlugin for using HTML templates
+* CommonsChunkPlugin for extracting shared modules in common chunk
+* HotModuleReplacementPlugin for enabling HMR
+
 
 ## Code spliting
 
