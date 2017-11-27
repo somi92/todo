@@ -17,11 +17,7 @@ var plugins = [
         'window.jQuery': 'jquery'
     }),
     new CommonsChunkPlugin({
-        name: 'vendor',
-        filename: 'vendor.bundle.js'
-    }),
-    new UglifyJSPlugin({
-        sourceMap: true
+        name: ['vendor', 'manifest']
     })
 ];
 
@@ -29,6 +25,12 @@ if (!isProd)
     plugins = plugins.concat([
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
+    ]);
+else
+    plugins = plugins.concat([
+        new UglifyJSPlugin({
+            sourceMap: true
+        })
     ]);
 
 module.exports = {
@@ -59,17 +61,22 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use:  ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.js$/,
                 loader: 'source-map-loader',
-                enforce: 'pre'
+                enforce: 'pre',
+                exclude: /node_modules/
             }
         ]
     },
 
     devtool: isProd ? 'source-map' : 'inline-source-map',
+
+    watchOptions: {
+        ignored: /node_modules/
+    },
 
     devServer: {
         hot: true,

@@ -1,4 +1,4 @@
-import todoItemTemplate from './todoItem.hbs';
+import todoItemTemplate from './todoItems.hbs';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
