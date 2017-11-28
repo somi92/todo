@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "del-cli dist -f",
-    "build": "webpack",
-    "server": "http-server ./dist",
-    "prod": "NODE_ENV=prod npm run build && npm run server",
+    "build": "webpack --env.prod",
+    "server": "http-server ./dist -p 9081",
+    "prod": "npm run build && npm run server",
     "dev": "webpack-dev-server",
     "watch": "webpack --watch"
   },

@@ -7,7 +7,11 @@ var removeButton = $('.remove-item');
 var listContainer = $('#todo-list-container');
 var todoInput = $('#item-input');
 
-var items = [];
+var items = [{
+    text: "Learn about npm and webpack!",
+    color: 'danger',
+    checked: false
+}];
 
 addButton.click(function (e) {
     handleAdd();
@@ -65,5 +69,7 @@ function toggleDone(index) {
         checked: !item.checked
     });
 }
+
+updateView();
 
 console.log("Simple TODO list app!");
