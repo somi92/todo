@@ -1,0 +1,149 @@
+{
+    /*
+        // Place your snippets for JavaScript here. Each snippet is defined under a snippet name and has a prefix, body and 
+        // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+        // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+        // same ids are connected.
+        // Example:
+        "Print to console": {
+            "prefix": "log",
+            "body": [
+                "console.log('$1');",
+                "$2"
+            ],
+            "description": "Log output to console"
+        }
+    */
+    "webpack output": {
+        "prefix": "wout",
+        "body": [
+            "output: {",
+            "   path: path.resolve(__dirname, 'dist'),",
+            "   filename: '[name].bundle.js'",
+            "},"
+        ],
+        "description": "webpack output"
+    },
+    "webpack loaders": {
+        "prefix": "wload",
+        "body": [
+            "{",
+            "   test: /\\.jsx?$/,",
+            "   loader: 'babel-loader',",
+            "   exclude: /node_modules/,",
+            "   options: {",
+            "       presets: ['es2015']",
+            "   }",
+            "},",
+            "{",
+            "   test: /\\.hbs$/,",
+            "   loader: 'handlebars-loader'",
+            "},",
+            "{",
+            "   test: /\\.css$/,",
+            "   use: ['style-loader', 'css-loader']",
+            "},"
+        ],
+        "description": "webpack loaders"
+    },
+    "webpack source map loader": {
+        "prefix": "wsmload",
+        "body": [
+            "{",
+            "   test: /\\.js$/,",
+            "   loader: 'source-map-loader',",
+            "   enforce: 'pre',",
+            "   exclude: /node_modules/",
+            "}"
+        ],
+        "description": "webpack source map loader"
+    },
+    "webpack initial plugins": {
+        "prefix": "wplugininit",
+        "body": [
+            "new HtmlwebpackPlugin({",
+            "   template: './src/index.html'",
+            "}),",
+            "new webpack.ProvidePlugin({",
+            "   $: 'jquery',",
+            "   jQuery: 'jquery',",
+            "   'window.jQuery': 'jquery'",
+            "}),"
+        ],
+        "description": "webpack initial plugins"
+    },
+    "webpack multiple entry": {
+        "prefix": "wmentry",
+        "body": [
+            "entry: {",
+            "   vendor: ['babel-polyfill', 'jquery', 'bootstrap/dist/css/bootstrap.min.css'],",
+            "   app: './src/app.js'",
+            "},"
+        ],
+        "description": "webpack multiple entry"
+    },
+    "webpack common chunks": {
+        "prefix": "wchunks",
+        "body": [
+            "new CommonsChunkPlugin({",
+            "   name: ['vendor', 'manifest']",
+            "})"
+        ],
+        "description": "webpack common chunks"
+    },
+    "webpack plugins prod": {
+        "prefix": "wpluginprod",
+        "body": [
+            "if (isProd) {",
+            "   plugins = plugins.concat([",
+            "       new UglifyJSPlugin({",
+            "           sourceMap: true",
+            "       })",
+            "   ]);",
+            "}"
+        ],
+        "description": "webpack plugins prod"
+    },
+    "webpack devtool": {
+        "prefix": "wdevtool",
+        "body": [
+            "devtool: isProd ? 'source-map' : 'inline-source-map',"
+        ],
+        "description": "webpack devtool"
+    },
+    "webpack dev server": {
+        "prefix": "wdevserver",
+        "body": [
+            "devServer: {",
+            "   contentBase: path.join(__dirname, \"dist\"),",
+            "   compress: true,",
+            "   port: 8081,",
+            "   // stats: 'errors-only',",
+            "   // open: true",
+            "},"
+        ],
+        "description": "webpack dev server"
+    },
+    "webpack hmr plugins": {
+        "prefix": "wpluginhmr",
+        "body": [
+            "plugins = plugins.concat([",
+            "   new webpack.NamedModulesPlugin(),",
+            "   new webpack.HotModuleReplacementPlugin()",
+            "]);"
+        ],
+        "description": "webpack hmr plugins"
+    },
+    "webpack import": {
+        "prefix": "wimport",
+        "body": [
+            "// const webpack = require('webpack');",
+            "// const HtmlwebpackPlugin = require('html-webpack-plugin');",
+            "// const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');",
+            "// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');",
+            " ",
+            "const path = require('path');"
+        ],
+        "description": "webpack import"
+    }
+}

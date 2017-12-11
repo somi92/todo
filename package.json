@@ -3,14 +3,7 @@
   "version": "1.0.0",
   "description": "Example todo app to demo npm and webpack",
   "main": "index.js",
-  "scripts": {
-    "prebuild": "del-cli dist -f",
-    "build": "webpack --env.prod",
-    "server": "http-server ./dist -p 9081",
-    "prod": "npm run build && npm run server",
-    "dev": "webpack-dev-server",
-    "watch": "webpack --watch"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/somi92/todo.git"
