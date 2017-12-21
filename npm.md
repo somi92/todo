@@ -125,7 +125,7 @@ GitHub repositories can also be used as a source of npm packages. The repository
 ```node
 npm install --save git+https://git@github.com/jxson/string-capitalize.git // install a GitHub repository as dependency
 // add #branchname to install specific branch or #commithash for a specific commit
-```` 
+``` 
 
 ### Linking
 

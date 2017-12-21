@@ -50,8 +50,8 @@ module.exports = {
 };
 ```
 
-TODO: Briefly describe content of emitted bundle.
-
+Refer to this great blog post for more detailed insight on how webpack bundles the code:
+* [https://www.ag-grid.com/ag-grid-understanding-webpack/](https://www.ag-grid.com/ag-grid-understanding-webpack/)
 
 ## Core concepts
 
@@ -179,10 +179,30 @@ Some of commonly used plugins are:
 * HotModuleReplacementPlugin for enabling HMR
 
 
-## Code spliting
+## Advanced concepts
 
-## Hot Module Replacement
+### Code spliting
 
-## Development vs Production environment
+Code spliting provides a way of creating multiple bundles. For example, creating separate bundles for different pages of the app (user vs admin functionalities) or separate bundles for thrid party vendor code. Multiple smaller bundles can improve load time and performance. It's even possible to load individual bundles on demand. CommonsChunkPlugin enables additional features for code spliting, mainly preventing code duplication across bundles.
 
-### References:
+Refer to:
+* [https://webpack.js.org/guides/code-splitting/](https://webpack.js.org/guides/code-splitting/)
+* [https://stackoverflow.com/questions/39548175/can-someone-explain-webpacks-commonschunkplugin](https://stackoverflow.com/questions/39548175/can-someone-explain-webpacks-commonschunkplugin)
+* [https://webpack.js.org/plugins/commons-chunk-plugin/](https://webpack.js.org/plugins/commons-chunk-plugin/)
+
+### Development vs Production environment
+
+Some features of webpack need different configuration (like source maps) or need to be disabled (like code minification or dev server) depending on the environment that the build targets. Webpack provides a way of defining environment variables which can be used inside `webpack.config.js`. Since config is just a JS file, the variables can be used with standard JS control flow constructs (like `if` statement).
+
+* [https://webpack.js.org/guides/environment-variables/](https://webpack.js.org/guides/environment-variables/) 
+
+### Dev Server and Hot Module Replacement
+
+The `webpack-dev-server` is a simple and easy to configure web server on which you can run your app while developing (it serves in memory files). It automatically watches over the files and reloads the app after a change to the source code.
+
+* [https://webpack.js.org/guides/development/#using-webpack-dev-server](https://webpack.js.org/guides/development/#using-webpack-dev-server)
+
+Additionaly, webpack provides a feature called Hot Module Replacement (HMR) on top of its dev server. HMR can update modules while the app is running without the need to do a full page reload. This can save some time and greatly enhance development experience (for example, when tweaking stylesheets). To enable HMR, app modules need to implement the HMR API or use an appropriate loader (like `style-loader` for css or `react-hot-loader` for React apps). Dev server and HMR should only be configured for development environment.
+
+* [https://webpack.js.org/concepts/hot-module-replacement/](https://webpack.js.org/concepts/hot-module-replacement/)
+* [https://webpack.js.org/guides/hot-module-replacement/](https://webpack.js.org/guides/hot-module-replacement/)
